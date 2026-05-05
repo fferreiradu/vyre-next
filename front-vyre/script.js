@@ -649,7 +649,7 @@ window.handleSubmit = async function(btn){
   btn.disabled = true;
 
   try {
-    const response = await fetch("https://vyre-backend-661w.onrender.com", {
+    const response = await fetch("https://vyre-backend-661w.onrender.com/enviar", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nome, email, whatsapp, servico, mensagem })
