@@ -1,0 +1,394 @@
+/* ══════════════════════════════════════════ VYRE NEXT — index.html ══════════════════════════════════════════ */
+<!doctype html>
+<html lang=pt-BR>
+<head>
+<meta charset=UTF-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>Vyre Next</title>
+<link rel=stylesheet href=style.css>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel=stylesheet>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel=stylesheet>
+</head>
+<div id=toast class=toast></div>
+<div id=toastCenter class=toast-center>
+<div class=toast-box id=toastBox></div>
+</div>
+  <body>
+  <div class=cursor id=cursor></div>
+  <div class=cursor-trail id=cursorTrail></div>
+  <div id=pilarModal class=pilar-modal-overlay onclick=fecharModal(event)>
+  <div class=pilar-modal-box>
+  <button class=pilar-modal-close onclick=closeModal()>
+  <svg viewBox="0 0 14 14" fill=none><path d="M1 1l12 12M13 1L1 13" stroke=currentColor stroke-width=1.8 stroke-linecap=round /></svg>
+  </button>
+  <div class=pilar-modal-header>
+  <div class=pilar-modal-tag id=modal-tag></div>
+  <h2 class=pilar-modal-title id=modal-title></h2>
+  <p class=pilar-modal-desc id=modal-desc></p>
+  </div>
+  <div class=pilar-modal-visual id=modal-visual></div>
+  <div class=pilar-modal-body>
+  <h3 class=pilar-modal-feat-title>O que está incluso</h3>
+  <div class=pilar-modal-features id=modal-features></div>
+  <div class=pilar-modal-cta>
+  <a href=#contato class=btn-primary onclick=closeModal()>Solicitar proposta →</a>
+  <button class=btn-modal-ghost onclick=closeModal()>Fechar</button>
+  </div>
+  </div>
+  </div>
+  </div>
+  <nav id=nav>
+  <div class=nav-logo>
+  <a href=#hero><img src=imagens/logo-vyrenext.png alt="Vyre Next"></a>
+  </div>
+  <ul class=nav-links>
+  <li><a href=#sobre>Quem Somos</a></li>
+  <li><a href=#pilares>Pilares</a></li>
+  <li><a href=#processo>Processo</a></li>
+  </ul>
+  <a href=#contato class=nav-cta>Fale Conosco</a>
+  </nav>
+  <section id=hero>
+  <div class=hero-video-wrap>
+  <video autoplay muted loop playsinline>
+  <source src=https://cdn.coverr.co/videos/coverr-aerial-view-of-a-city-at-night-3573/1080p.mp4 type=video/mp4>
+  </video>
+  </div>
+  <div class=hero-grid></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class=hero-content>
+  <div class=hero-eyebrow>
+  <span class=dot></span>
+  Tecnologia que move negócios para o próximo nível
+  </div>
+  <h1 class=hero-title>
+  <span class=line-static>Transformamos negócios com</span>
+  <span class=line-dynamic>
+  <span id=typewriter></span><span class=typewriter-cursor></span>
+  </span>
+  </h1>
+  <p class=hero-sub>
+  Infraestrutura sólida, desenvolvimento sob medida, visibilidade digital de performance e dados que guiam decisões. Tudo em um só lugar.
+  </p>
+  <div class=hero-actions>
+  <a href=#contato class=btn-primary>
+  Começar agora
+  <svg width=15 height=15 viewBox="0 0 16 16" fill=none><path d="M3 8h10M9 4l4 4-4 4" stroke=currentColor stroke-width=1.6 stroke-linecap=round stroke-linejoin=round /></svg>
+  </a>
+  <a href=#pilares class=btn-secondary>Conhecer nossos pilares</a>
+  </div>
+  </div>
+  <div class=scroll-indicator>
+  <div class=scroll-line></div>
+  <span>Scroll</span>
+  </div>
+  </section>
+  <section id=sobre>
+  <div class=sobre-wrap>
+  <div class=sobre-top>
+  <div class=sobre-text>
+  <span class=section-tag>Quem Somos</span>
+  <h2 class=section-title>Uma empresa de <em>tecnologia integrada</em> para negócios que querem crescer</h2>
+  <p class=section-sub>A Vyre Next nasceu para resolver um problema comum: empresas que precisam de múltiplos fornecedores de tecnologia sem ter uma visão unificada. Reunimos infraestrutura, desenvolvimento, marketing e dados em um único parceiro estratégico.</p>
+  <div class=sobre-values>
+  <div class=value-card>
+  <div class=vc-icon>
+  <img src=/Site/imagens/icone-foco.png alt="">
+  </div>
+  <h4>Foco em Resultado</h4>
+  <p>Cada solução é desenhada com métricas claras de sucesso desde o início.</p>
+  </div>
+  <div class=value-card>
+  <div class=vc-icon>
+  <img src=/Site/imagens/icone-integrado.png alt="">
+  </div>
+  <h4>Visão Integrada</h4>
+  <p>Os 4 pilares funcionam juntos, amplificando o impacto de cada um.</p>
+  </div>
+  <div class=value-card>
+  <div class=vc-icon>
+  <img src=/Site/imagens/icone-agilidade.png alt="">
+  </div>
+  <h4>Agilidade</h4>
+  <p>Sprints semanais com entregas incrementais e comunicação direta.</p>
+  </div>
+  <div class=value-card>
+  <div class=vc-icon>
+  <img src=/Site/imagens/icone-dash.png alt="">
+  </div>
+  <h4>Transparência</h4>
+  <p>Relatórios e dashboards em tempo real para cada cliente.</p>
+  </div>
+  </div>
+  </div>
+  <div class=depo-col>
+  <div class=depo-col-tag>
+  <span class=section-tag>O que dizem nossos clientes</span>
+  </div>
+  <div class=depo-stack>
+  <div class=depo-card>
+  <div class=depo-stars>
+  <svg viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,11.5 3.5,15 5,9.5 1,6 6,6"/></svg>
+  <svg viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,11.5 3.5,15 5,9.5 1,6 6,6"/></svg>
+  <svg viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,11.5 3.5,15 5,9.5 1,6 6,6"/></svg>
+  <svg viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,11.5 3.5,15 5,9.5 1,6 6,6"/></svg>
+  <svg viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,11.5 3.5,15 5,9.5 1,6 6,6"/></svg>
+  </div>
+  <p class=depo-quote>A Vyre Next transformou nossa operação. Em 60 dias tínhamos a infraestrutura estabilizada, um sistema novo rodando e campanhas gerando leads qualificados. Nunca imaginei ter tudo isso em um único parceiro.</p>
+  <div class=depo-author>
+  <div class=depo-avatar>RC</div>
+  <div>
+  <div class=depo-name>Ricardo Costa</div>
+  <div class=depo-role>CEO — Construtora Horizonte</div>
+  </div>
+  </div>
+  </div>
+  <div class=depo-card>
+  <div class=depo-stars>
+  <svg viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,11.5 3.5,15 5,9.5 1,6 6,6"/></svg>
+  <svg viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,11.5 3.5,15 5,9.5 1,6 6,6"/></svg>
+  <svg viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,11.5 3.5,15 5,9.5 1,6 6,6"/></svg>
+  <svg viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,11.5 3.5,15 5,9.5 1,6 6,6"/></svg>
+  <svg viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,11.5 3.5,15 5,9.5 1,6 6,6"/></svg>
+  </div>
+  <p class=depo-quote>O dashboard que eles criaram pra gente mudou completamente como tomamos decisões. Agora consigo ver em tempo real o resultado de cada campanha. Atendimento impecável do começo ao fim.</p>
+  <div class=depo-author>
+  <div class=depo-avatar>AM</div>
+  <div>
+  <div class=depo-name>Ana Martins</div>
+  <div class=depo-role>Diretora de Marketing — Grupo Nuvem</div>
+  </div>
+  </div>
+  </div>
+  <div class=depo-card>
+  <div class=depo-stars>
+  <svg viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,11.5 3.5,15 5,9.5 1,6 6,6"/></svg>
+  <svg viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,11.5 3.5,15 5,9.5 1,6 6,6"/></svg>
+  <svg viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,11.5 3.5,15 5,9.5 1,6 6,6"/></svg>
+  <svg viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,11.5 3.5,15 5,9.5 1,6 6,6"/></svg>
+  <svg viewBox="0 0 16 16"><polygon points="8,1 10,6 15,6 11,9.5 12.5,15 8,11.5 3.5,15 5,9.5 1,6 6,6"/></svg>
+  </div>
+  <p class=depo-quote>Automatizamos processos que consumiam horas da nossa equipe todo dia. A Vyre entendeu exatamente o que precisávamos e entregou rápido, com suporte contínuo após a entrega.</p>
+  <div class=depo-author>
+  <div class=depo-avatar>FS</div>
+  <div>
+  <div class=depo-name>Felipe Souza</div>
+  <div class=depo-role>Sócio-fundador — Agro Digital SC</div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </section>
+  <section id=pilares>
+  <div class=pilares-wrap>
+  <div class=pilares-header>
+  <span class=section-tag>O que fazemos</span>
+  <h2 class=section-title>Quatro pilares para <em>impulsionar</em> seu negócio</h2>
+  <p class=section-sub>Clique em um pilar para ver todos os detalhes, exemplos e o que está incluso.</p>
+  </div>
+  <div class=pilares-grid>
+  <div class=pilar-card onclick='abrirModal("infra")'>
+  <button class=pilar-zoom aria-label="Ver detalhes">
+  <svg viewBox="0 0 14 14" fill=none><path d="M1 1h4M1 1v4M13 1h-4M13 1v4M1 13h4M1 13v-4M13 13h-4M13 13v-4" stroke=currentColor stroke-width=1.6 stroke-linecap=round /></svg>
+  </button>
+  <div class=pilar-num>Pilar 01</div>
+  <div class=pilar-icon>
+  <svg viewBox="0 0 24 24" fill=none xmlns=http://www.w3.org/2000/svg>
+  <rect x=2 y=3 width=20 height=14 rx=2 stroke=#7c3aff stroke-width=2 />
+  <line x1=8 y1=21 x2=16 y2=21 stroke=#c084fc stroke-width=2 stroke-linecap=round />
+  <line x1=12 y1=17 x2=12 y2=21 stroke=#c084fc stroke-width=2 stroke-linecap=round />
+  <circle cx=12 cy=10 r=2 stroke=#7c3aff stroke-width=1.5 />
+  </svg>
+  </div>
+  <div class=pilar-title>Infraestrutura & TI</div>
+  <p class=pilar-desc>Checkup completo de computadores e redes, suporte técnico ágil e preventivo para que sua equipe nunca pare.</p>
+  <div class=pilar-services>
+  <span class=service-tag>Checkup</span>
+  <span class=service-tag>Redes</span>
+  <span class=service-tag>Suporte</span>
+  <span class=service-tag>Manutenção</span>
+  </div>
+  </div>
+  <div class=pilar-card onclick='abrirModal("dev")'>
+  <button class=pilar-zoom aria-label="Ver detalhes">
+  <svg viewBox="0 0 14 14" fill=none><path d="M1 1h4M1 1v4M13 1h-4M13 1v4M1 13h4M1 13v-4M13 13h-4M13 13v-4" stroke=currentColor stroke-width=1.6 stroke-linecap=round /></svg>
+  </button>
+  <div class=pilar-num>Pilar 02</div>
+  <div class=pilar-icon>
+  <svg viewBox="0 0 24 24" fill=none xmlns=http://www.w3.org/2000/svg>
+  <polyline points="16 18 22 12 16 6" stroke=#7c3aff stroke-width=2 stroke-linecap=round stroke-linejoin=round />
+  <polyline points="8 6 2 12 8 18" stroke=#c084fc stroke-width=2 stroke-linecap=round stroke-linejoin=round />
+  </svg>
+  </div>
+  <div class=pilar-title>Automação & Sistemas</div>
+  <p class=pilar-desc>Sistemas sob medida e automação de processos que eliminam retrabalho e escalam com o seu negócio.</p>
+  <div class=pilar-services>
+  <span class=service-tag>Sistemas</span>
+  <span class=service-tag>Automação</span>
+  <span class=service-tag>Integrações</span>
+  </div>
+  </div>
+  <div class=pilar-card onclick='abrirModal("mkt")'>
+  <button class=pilar-zoom aria-label="Ver detalhes">
+  <svg viewBox="0 0 14 14" fill=none><path d="M1 1h4M1 1v4M13 1h-4M13 1v4M1 13h4M1 13v-4M13 13h-4M13 13v-4" stroke=currentColor stroke-width=1.6 stroke-linecap=round /></svg>
+  </button>
+  <div class=pilar-num>Pilar 03</div>
+  <div class=pilar-icon>
+  <svg viewBox="0 0 24 24" fill=none xmlns=http://www.w3.org/2000/svg>
+  <path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke=#7c3aff stroke-width=2 stroke-linecap=round stroke-linejoin=round />
+  </svg>
+  </div>
+  <div class=pilar-title>Visibilidade Digital</div>
+  <p class=pilar-desc>Gestão especializada de Meta Ads e Google Ads com estratégias de performance e foco total em ROI.</p>
+  <div class=pilar-services>
+  <span class=service-tag>Meta Ads</span>
+  <span class=service-tag>Google Ads</span>
+  <span class=service-tag>Tráfego Pago</span>
+  </div>
+  </div>
+  <div class=pilar-card onclick='abrirModal("dados")'>
+  <button class=pilar-zoom aria-label="Ver detalhes">
+  <svg viewBox="0 0 14 14" fill=none><path d="M1 1h4M1 1v4M13 1h-4M13 1v4M1 13h4M1 13v-4M13 13h-4M13 13v-4" stroke=currentColor stroke-width=1.6 stroke-linecap=round /></svg>
+  </button>
+  <div class=pilar-num>Pilar 04</div>
+  <div class=pilar-icon>
+  <svg viewBox="0 0 24 24" fill=none xmlns=http://www.w3.org/2000/svg>
+  <line x1=18 y1=20 x2=18 y2=10 stroke=#7c3aff stroke-width=2 stroke-linecap=round />
+  <line x1=12 y1=20 x2=12 y2=4 stroke=#c084fc stroke-width=2 stroke-linecap=round />
+  <line x1=6 y1=20 x2=6 y2=14 stroke=#7c3aff stroke-width=2 stroke-linecap=round />
+  </svg>
+  </div>
+  <div class=pilar-title>Inteligência do Negócio</div>
+  <p class=pilar-desc>Dashboards e relatórios que transformam dados brutos em decisões estratégicas claras e acionáveis.</p>
+  <div class=pilar-services>
+  <span class=service-tag>Dashboards</span>
+  <span class=service-tag>KPIs</span>
+  <span class=service-tag>Análise</span>
+  </div>
+  </div>
+  </div>
+  </div>
+  </section>
+  <section id=processo>
+  <div class=processo-wrap>
+  <span class=section-tag>Como trabalhamos</span>
+  <h2 class=section-title>Do diagnóstico à <em>solução</em> em 4 etapas</h2>
+  <div class=processo-cols>
+  <div class=steps>
+  <div class=step>
+  <div class=step-num>01</div>
+  <div class=step-content>
+  <h4>Diagnóstico</h4>
+  <p>Entendemos profundamente o seu negócio, gargalos e objetivos antes de qualquer proposta.</p>
+  </div>
+  </div>
+  <div class=step>
+  <div class=step-num>02</div>
+  <div class=step-content>
+  <h4>Estratégia Personalizada</h4>
+  <p>Desenhamos uma solução sob medida integrando os pilares que fazem sentido para o seu momento.</p>
+  </div>
+  </div>
+  <div class=step>
+  <div class=step-num>03</div>
+  <div class=step-content>
+  <h4>Implementação Ágil</h4>
+  <p>Colocamos tudo em produção com velocidade, qualidade e comunicação transparente.</p>
+  </div>
+  </div>
+  <div class=step>
+  <div class=step-num>04</div>
+  <div class=step-content>
+  <h4>Suporte Contínuo</h4>
+  <p>Acompanhamos resultados, ajustamos estratégias e crescemos juntos de forma sustentável.</p>
+  </div>
+  </div>
+  </div>
+  <div class=processo-visual>
+  <div class=visual-card><div class=vc-dot></div><span class=vc-text>Reunião de briefing e alinhamento</span></div>
+  <div class=visual-card><div class=vc-dot></div><span class=vc-text>Mapa de solução customizado</span></div>
+  <div class=visual-card><div class=vc-dot></div><span class=vc-text>Execução com sprints semanais</span></div>
+  <div class=visual-card><div class=vc-dot></div><span class=vc-text>Relatórios e evolução constante</span></div>
+  </div>
+  </div>
+  </div>
+  </section>
+  <section id=contato>
+  <div class=contato-wrap>
+  <div>
+  <span class=section-tag>Fale com a gente</span>
+  <h2 class=section-title>Pronto para dar o passo para o <em>próximo nível</em>?</h2>
+  <p class=section-sub>Preencha o formulário e um especialista Vyre Next entrará em contato em até 24 horas.</p>
+  <div style=margin-top:44px;display:flex;flex-direction:column;gap:18px>
+  <div class=contact-info-item>
+  <div class=ci-icon>📧</div>
+  <div><div class=ci-label>Email</div><div class=ci-value>vyrenext@gmail.com.br</div></div>
+  </div>
+  <div class=contact-info-item>
+  <div class=ci-icon>💬</div>
+  <div><div class=ci-label>WhatsApp</div><div class=ci-value>(49) 98805-0290</div></div>
+  </div>
+  <div class=contact-info-item>
+  <div class=ci-icon>📍</div>
+  <div><div class=ci-label>Localização</div><div class=ci-value>Caçador, SC — Atendimento Nacional</div></div>
+  </div>
+  </div>
+  </div>
+  <div class=contato-form>
+  <div class=form-group><label>Nome completo</label><input id=nome placeholder="Seu nome"></div>
+  <div class=form-group><label>Email</label><input id=email type=email placeholder=seu@email.com></div>
+  <div class=form-group><label>WhatsApp</label><input id=whatsapp type=tel placeholder="(49) 99999-9999"></div>
+  <div class=form-group>
+  <label>Serviço de interesse</label>
+  <select id=servico>
+  <option value="">Selecione um pilar</option>
+  <option>Infraestrutura & TI</option>
+  <option>Automação & Sistemas</option>
+  <option>Visibilidade Digital</option>
+  <option>Inteligência do Negócio</option>
+  <option>Solução Completa</option>
+  </select>
+  </div>
+  <div class=form-group><label>Mensagem</label><textarea id=mensagem placeholder="Conte um pouco sobre seu negócio e o que precisa..."></textarea></div>
+  <button class=form-submit onclick=handleSubmit(this)>Enviar mensagem →</button>
+  </div>
+  </div>
+  </section>
+  <footer>
+  <div class=footer-inner>
+  <div class=footer-top>
+  <div class=footer-brand>
+  <img src=imagens/logo-simbolo.png alt="">
+  <p>Tecnologia integrada para empresas que querem crescer com consistência e inteligência.</p>
+  </div>
+  <div class=footer-col>
+  <h5>Pilares</h5>
+  <ul>
+  <li><a href=#pilares>Infraestrutura & TI</a></li>
+  <li><a href=#pilares>Automação & Sistemas</a></li>
+  <li><a href=#pilares>Visibilidade Digital</a></li>
+  <li><a href=#pilares>Inteligência do Negócio</a></li>
+  </ul>
+  </div>
+  <div class=footer-col>
+  <h5>Empresa</h5>
+  <ul>
+  <li><a href=#sobre>Quem Somos</a></li>
+  <li><a href=#processo>Como Trabalhamos</a></li>
+  <li><a href=#contato>Contato</a></li>
+  </ul>
+  </div>
+  </div>
+  <div class=footer-bottom>
+  <p>© 2026 Vyre Next. Todos os direitos reservados.</p>
+  </div>
+  </div>
+  </footer>
+  <script src=script.js></script>
+  </body>
+</html>
