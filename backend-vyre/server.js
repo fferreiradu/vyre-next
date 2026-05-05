@@ -8,6 +8,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("API Vyre rodando 🚀");
+});
+
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -44,7 +48,6 @@ ${mensagem}
     });
 
     res.json({ success: true });
-
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Erro ao enviar" });
@@ -52,11 +55,6 @@ ${mensagem}
 });
 
 const PORT = process.env.PORT || 3000;
-
 app.listen(PORT, () => {
   console.log("Servidor rodando na porta " + PORT);
-});
-
-app.get("/", (req, res) => {
-  res.send("API Vyre rodando 🚀");
 });
