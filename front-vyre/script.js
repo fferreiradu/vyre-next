@@ -630,11 +630,6 @@ function fecharModal(e) {
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
 /* ── FORM ── */
-/* ══════════════════════════════════════════
-   SUBSTITUIR no script.js
-   Cole no final, substituindo todo o bloco
-   window.handleSubmit + showToast + showCenterToast
-══════════════════════════════════════════ */
 
 window.handleSubmit = async function(btn) {
   const nomeEl     = document.getElementById("nome");
