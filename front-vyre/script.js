@@ -630,6 +630,12 @@ function fecharModal(e) {
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
 /* ── FORM ── */
+/* ══════════════════════════════════════════
+   SUBSTITUIR no script.js
+   Cole no final, substituindo todo o bloco
+   window.handleSubmit + showToast + showCenterToast
+══════════════════════════════════════════ */
+
 window.handleSubmit = async function(btn) {
   const nomeEl     = document.getElementById("nome");
   const emailEl    = document.getElementById("email");
@@ -652,9 +658,14 @@ window.handleSubmit = async function(btn) {
   btn.textContent = "Enviando...";
   btn.disabled = true;
 
-
+  /* Render free tier pode demorar ~50s para acordar — 60s de timeout */
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 15000);
+  const timeoutId  = setTimeout(() => controller.abort(), 60000);
+
+  /* Após 8s avisa que está acordando o servidor */
+  const slowId = setTimeout(() => {
+    if (btn.disabled) btn.textContent = "Aguarde, conectando...";
+  }, 8000);
 
   try {
     const response = await fetch("https://vyre-backend-661w.onrender.com/enviar", {
@@ -664,27 +675,25 @@ window.handleSubmit = async function(btn) {
       signal: controller.signal
     });
 
-    clearTimeout(timeout);
+    clearTimeout(timeoutId);
+    clearTimeout(slowId);
 
     const text = await response.text();
     let data = {};
-    try { data = JSON.parse(text); } catch (_) { }
+    try { data = JSON.parse(text); } catch (_) {}
 
-    if (!response.ok) {
-      throw new Error(data.error || `Erro ${response.status}`);
-    }
+    if (!response.ok) throw new Error(data.error || `Erro ${response.status}`);
 
-    /* Sucesso */
     showToast("Mensagem enviada com sucesso! ✅");
     nomeEl.value = emailEl.value = whatsappEl.value = mensagemEl.value = "";
     servicoEl.selectedIndex = 0;
 
   } catch (err) {
-    clearTimeout(timeout);
-    console.error("Erro no envio:", err);
+    clearTimeout(timeoutId);
+    clearTimeout(slowId);
 
     if (err.name === "AbortError") {
-      showToast("Tempo limite atingido. Tente novamente em instantes.", true);
+      showToast("Servidor demorou para responder. Tente novamente.", true);
     } else {
       showToast(err.message || "Erro ao enviar. Tente novamente.", true);
     }
@@ -693,6 +702,25 @@ window.handleSubmit = async function(btn) {
     btn.disabled = false;
   }
 };
+
+function showToast(message, isError = false) {
+  const toast = document.getElementById("toast");
+  if (!toast) return;
+  toast.textContent = message;
+  isError ? toast.classList.add("error") : toast.classList.remove("error");
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 5000);
+}
+
+function showCenterToast(message, isError = false) {
+  const overlay = document.getElementById("toastCenter");
+  const box     = document.getElementById("toastBox");
+  if (!overlay || !box) return;
+  box.textContent = message;
+  isError ? box.classList.add("error") : box.classList.remove("error");
+  overlay.classList.add("show");
+  setTimeout(() => overlay.classList.remove("show"), 3000);
+}
 
 function showToast(message, isError = false) {
   const toast = document.getElementById("toast");
