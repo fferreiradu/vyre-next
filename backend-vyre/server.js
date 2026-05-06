@@ -10,8 +10,8 @@ app.use(express.json());
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "vyrenext@gmail.com",
-    pass: "kxmtkspuyjuudioz"
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
   }
 });
 
@@ -20,8 +20,8 @@ app.post("/enviar", async (req, res) => {
     const { nome, email, whatsapp, servico, mensagem } = req.body;
 
     await transporter.sendMail({
-      from: "vyrenext@gmail.com",
-      to: "vyrenext@gmail.com",
+      from: process.env.EMAIL_USER,
+      to: process.env.EMAIL_USER,
       subject: `Novo contato - ${nome}`,
       html: `
         <h2>Nova mensagem do site</h2>
@@ -41,7 +41,7 @@ app.post("/enviar", async (req, res) => {
     });
 
   } catch (error) {
-    console.error(error);
+    console.error("ERRO:", error);
 
     return res.status(500).json({
       success: false,
