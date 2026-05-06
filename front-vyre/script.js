@@ -502,7 +502,6 @@ function ianyFix() {
 }
 window.ianyFix = ianyFix;
 
-/* Anima cursor remoto */
 function startAnydeskCursor() {
   const cur = document.getElementById('iany-cursor');
   if(!cur) return;
@@ -515,7 +514,6 @@ function startAnydeskCursor() {
   }, 1800);
 }
 
-/* Anima barras do Task Manager */
 function startTaskManager() {
   function rand(min,max){ return Math.floor(Math.random()*(max-min))+min; }
   setInterval(() => {
@@ -632,14 +630,20 @@ function fecharModal(e) {
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
 /* ── FORM ── */
-window.handleSubmit = async function(btn){
-  const nome = document.getElementById("nome").value;
-  const email = document.getElementById("email").value;
-  const whatsapp = document.getElementById("whatsapp").value;
-  const servico = document.getElementById("servico").value;
-  const mensagem = document.getElementById("mensagem").value;
+window.handleSubmit = async function(btn) {
+  const nomeEl     = document.getElementById("nome");
+  const emailEl    = document.getElementById("email");
+  const whatsappEl = document.getElementById("whatsapp");
+  const servicoEl  = document.getElementById("servico");
+  const mensagemEl = document.getElementById("mensagem");
 
-  if(!nome.trim() || !email.trim() || !mensagem.trim()){
+  const nome     = nomeEl.value.trim();
+  const email    = emailEl.value.trim();
+  const whatsapp = whatsappEl.value.trim();
+  const servico  = servicoEl.value;
+  const mensagem = mensagemEl.value.trim();
+
+  if (!nome || !email || !mensagem) {
     showCenterToast("Preencha nome, email e mensagem!", true);
     return;
   }
@@ -648,42 +652,63 @@ window.handleSubmit = async function(btn){
   btn.textContent = "Enviando...";
   btn.disabled = true;
 
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 15000);
+
   try {
     const response = await fetch("https://vyre-backend-661w.onrender.com/enviar", {
       method: "POST",
-      headers: { 
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ nome, email, whatsapp, servico, mensagem })
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nome, email, whatsapp, servico, mensagem }),
+      signal: controller.signal
     });
 
-    // 🔥 lê como texto primeiro (evita travar)
+    clearTimeout(timeout);
+
     const text = await response.text();
+    let data = {};
+    try { data = JSON.parse(text); } catch (_) { }
 
-    let data;
-    try {
-      data = JSON.parse(text);
-    } catch {
-      throw new Error("Resposta inválida do servidor");
+    if (!response.ok) {
+      throw new Error(data.error || `Erro ${response.status}`);
     }
 
-    if(!response.ok){
-      throw new Error(data.error || "Erro ao enviar");
+    /* Sucesso */
+    showToast("Mensagem enviada com sucesso! ✅");
+    nomeEl.value = emailEl.value = whatsappEl.value = mensagemEl.value = "";
+    servicoEl.selectedIndex = 0;
+
+  } catch (err) {
+    clearTimeout(timeout);
+    console.error("Erro no envio:", err);
+
+    if (err.name === "AbortError") {
+      showToast("Tempo limite atingido. Tente novamente em instantes.", true);
+    } else {
+      showToast(err.message || "Erro ao enviar. Tente novamente.", true);
     }
-
-    showToast("Mensagem enviada com sucesso!");
-
-    document.getElementById("nome").value = "";
-    document.getElementById("email").value = "";
-    document.getElementById("whatsapp").value = "";
-    document.getElementById("mensagem").value = "";
-    document.getElementById("servico").selectedIndex = 0;
-
-  } catch (error) {
-    console.error("ERRO REAL:", error);
-    showToast(error.message || "Erro ao enviar mensagem", true);
+  } finally {
+    btn.textContent = originalText;
+    btn.disabled = false;
   }
-
-  btn.textContent = originalText;
-  btn.disabled = false;
 };
+
+function showToast(message, isError = false) {
+  const toast = document.getElementById("toast");
+  if (!toast) return;
+  toast.textContent = message;
+  isError ? toast.classList.add("error") : toast.classList.remove("error");
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 4000);
+}
+
+function showCenterToast(message, isError = false) {
+  const overlay = document.getElementById("toastCenter");
+  const box     = document.getElementById("toastBox");
+  if (!overlay || !box) return;
+  box.textContent = message;
+  isError ? box.classList.add("error") : box.classList.remove("error");
+  overlay.classList.add("show");
+  setTimeout(() => overlay.classList.remove("show"), 3000);
+}
