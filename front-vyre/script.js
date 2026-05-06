@@ -658,17 +658,15 @@ window.handleSubmit = async function(btn) {
   btn.textContent = "Enviando...";
   btn.disabled = true;
 
-  /* Render free tier pode demorar ~50s para acordar — 60s de timeout */
   const controller = new AbortController();
   const timeoutId  = setTimeout(() => controller.abort(), 60000);
 
-  /* Após 8s avisa que está acordando o servidor */
   const slowId = setTimeout(() => {
     if (btn.disabled) btn.textContent = "Aguarde, conectando...";
   }, 8000);
 
   try {
-    const response = await fetch("https://vyre-backend-661w.onrender.com/enviar", {
+    const response = await fetch("http://localhost:3000/enviar", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nome, email, whatsapp, servico, mensagem }),
