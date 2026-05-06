@@ -651,11 +651,21 @@ window.handleSubmit = async function(btn){
   try {
     const response = await fetch("https://vyre-backend-661w.onrender.com/enviar", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({ nome, email, whatsapp, servico, mensagem })
     });
 
-    const data = await response.json();
+    // 🔥 lê como texto primeiro (evita travar)
+    const text = await response.text();
+
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch {
+      throw new Error("Resposta inválida do servidor");
+    }
 
     if(!response.ok){
       throw new Error(data.error || "Erro ao enviar");
@@ -670,8 +680,8 @@ window.handleSubmit = async function(btn){
     document.getElementById("servico").selectedIndex = 0;
 
   } catch (error) {
-    console.error(error);
-    showToast("Erro ao enviar mensagem", true);
+    console.error("ERRO REAL:", error);
+    showToast(error.message || "Erro ao enviar mensagem", true);
   }
 
   btn.textContent = originalText;
