@@ -661,7 +661,7 @@ window.handleSubmit = async function(btn) {
   }, 8000);
 
   try {
-    const response = await fetch("http://localhost:3000/enviar", {
+    const response = await fetch("https://vyre-next-production.up.railway.app", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nome, email, whatsapp, servico, mensagem }),
