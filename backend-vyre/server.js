@@ -4,7 +4,11 @@ import nodemailer from "nodemailer";
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: "https://vyre-next.vercel.app",
+  methods: ["GET", "POST"],
+  credentials: true
+}));
 app.use(express.json());
 
 const transporter = nodemailer.createTransport({
