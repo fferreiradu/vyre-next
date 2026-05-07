@@ -633,6 +633,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
    FORM
 ───────────────────────────────────────── */
 
+const API_URL = "https://vyre-next-production.up.railway.app"; 
 window.handleSubmit = async function(btn) {
   const nomeEl     = document.getElementById("nome");
   const emailEl    = document.getElementById("email");
@@ -652,100 +653,74 @@ window.handleSubmit = async function(btn) {
   }
 
   const originalText = btn.textContent;
-
   btn.disabled = true;
   btn.textContent = "Enviando...";
 
-  try {
+  const slowTimer = setTimeout(() => {
+    if (btn.disabled) btn.textContent = "Aguarde, conectando...";
+  }, 8000);
 
-    const response = await fetch("https://vyre-next-production.up.railway.app/enviar", {
+  /* Timeout de 60s */
+  const controller = new AbortController();
+  const timeoutId  = setTimeout(() => controller.abort(), 60000);
+
+  try {
+    const response = await fetch(`${API_URL}/enviar`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        nome,
-        email,
-        whatsapp,
-        servico,
-        mensagem
-      })
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nome, email, whatsapp, servico, mensagem }),
+      signal: controller.signal
     });
 
-    const data = await response.json();
+    clearTimeout(timeoutId);
+    clearTimeout(slowTimer);
+
+    /* Se 404 → URL errada */
+    if (response.status === 404) {
+      throw new Error("Rota não encontrada (404). Verifique a URL do servidor.");
+    }
+
+    const data = await response.json().catch(() => ({}));
 
     if (!response.ok) {
-      throw new Error(data.error || "Erro ao enviar");
+      throw new Error(data.error || `Erro ${response.status}`);
     }
 
     showToast("Mensagem enviada com sucesso! ✅");
-
-    nomeEl.value = "";
-    emailEl.value = "";
-    whatsappEl.value = "";
-    mensagemEl.value = "";
+    nomeEl.value = emailEl.value = whatsappEl.value = mensagemEl.value = "";
     servicoEl.selectedIndex = 0;
 
-  } catch (error) {
+  } catch (err) {
+    clearTimeout(timeoutId);
+    clearTimeout(slowTimer);
+    console.error("Erro no envio:", err.message);
 
-    console.error(error);
-
-    showToast(
-      error.message || "Erro ao enviar mensagem.",
-      true
-    );
-
+    if (err.name === "AbortError") {
+      showToast("Servidor demorou para responder. Tente novamente.", true);
+    } else {
+      showToast(err.message || "Erro ao enviar. Tente novamente.", true);
+    }
   } finally {
-
     btn.disabled = false;
     btn.textContent = originalText;
-
   }
 };
 
-/* ─────────────────────────────────────────
-   TOASTS
-───────────────────────────────────────── */
-
 function showToast(message, isError = false) {
-
   const toast = document.getElementById("toast");
-
   if (!toast) return;
-
   toast.textContent = message;
-
-  if (isError) {
-    toast.classList.add("error");
-  } else {
-    toast.classList.remove("error");
-  }
-
+  isError ? toast.classList.add("error") : toast.classList.remove("error");
   toast.classList.add("show");
-
-  setTimeout(() => {
-    toast.classList.remove("show");
-  }, 4000);
+  setTimeout(() => toast.classList.remove("show"), 5000);
 }
 
 function showCenterToast(message, isError = false) {
-
   const overlay = document.getElementById("toastCenter");
-  const box = document.getElementById("toastBox");
-
+  const box     = document.getElementById("toastBox");
   if (!overlay || !box) return;
-
   box.textContent = message;
-
-  if (isError) {
-    box.classList.add("error");
-  } else {
-    box.classList.remove("error");
-  }
-
+  isError ? box.classList.add("error") : box.classList.remove("error");
   overlay.classList.add("show");
-
-  setTimeout(() => {
-    overlay.classList.remove("show");
-  }, 3000);
+  setTimeout(() => overlay.classList.remove("show"), 3000);
 }
