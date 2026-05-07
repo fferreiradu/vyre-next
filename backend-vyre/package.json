@@ -1,5 +1,5 @@
 {
-  "name": "backend-vyre",
+  "name": "vyre-api",
   "version": "1.0.0",
   "type": "module",
   "main": "server.js",
@@ -7,8 +7,8 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "cors": "^2.8.6",
-    "express": "^5.2.1",
-    "nodemailer": "^8.0.7"
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "nodemailer": "^6.10.0"
   }
 }
