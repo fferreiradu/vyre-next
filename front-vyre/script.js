@@ -633,7 +633,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
    FORM
 ───────────────────────────────────────── */
 
-const API_URL = "https://vyre-next-production.up.railway.app"; 
+const API_URL = "https://vyre-next-production.up.railway.app/enviar"; 
 window.handleSubmit = async function(btn) {
   const nomeEl     = document.getElementById("nome");
   const emailEl    = document.getElementById("email");
