@@ -629,7 +629,9 @@ function fecharModal(e) {
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-/* ── FORM ── */
+/* ─────────────────────────────────────────
+   FORM
+───────────────────────────────────────── */
 
 window.handleSubmit = async function(btn) {
   const nomeEl     = document.getElementById("nome");
@@ -650,86 +652,100 @@ window.handleSubmit = async function(btn) {
   }
 
   const originalText = btn.textContent;
-  btn.textContent = "Enviando...";
+
   btn.disabled = true;
-
-  const controller = new AbortController();
-  const timeoutId  = setTimeout(() => controller.abort(), 60000);
-
-  const slowId = setTimeout(() => {
-    if (btn.disabled) btn.textContent = "Aguarde, conectando...";
-  }, 8000);
+  btn.textContent = "Enviando...";
 
   try {
+
     const response = await fetch("https://vyre-next-production.up.railway.app/enviar", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ nome, email, whatsapp, servico, mensagem }),
-      signal: controller.signal
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        nome,
+        email,
+        whatsapp,
+        servico,
+        mensagem
+      })
     });
 
-    clearTimeout(timeoutId);
-    clearTimeout(slowId);
+    const data = await response.json();
 
-    const text = await response.text();
-    let data = {};
-    try { data = JSON.parse(text); } catch (_) {}
-
-    if (!response.ok) throw new Error(data.error || `Erro ${response.status}`);
+    if (!response.ok) {
+      throw new Error(data.error || "Erro ao enviar");
+    }
 
     showToast("Mensagem enviada com sucesso! ✅");
-    nomeEl.value = emailEl.value = whatsappEl.value = mensagemEl.value = "";
+
+    nomeEl.value = "";
+    emailEl.value = "";
+    whatsappEl.value = "";
+    mensagemEl.value = "";
     servicoEl.selectedIndex = 0;
 
-  } catch (err) {
-    clearTimeout(timeoutId);
-    clearTimeout(slowId);
+  } catch (error) {
 
-    if (err.name === "AbortError") {
-      showToast("Servidor demorou para responder. Tente novamente.", true);
-    } else {
-      showToast(err.message || "Erro ao enviar. Tente novamente.", true);
-    }
+    console.error(error);
+
+    showToast(
+      error.message || "Erro ao enviar mensagem.",
+      true
+    );
+
   } finally {
-    btn.textContent = originalText;
+
     btn.disabled = false;
+    btn.textContent = originalText;
+
   }
 };
 
+/* ─────────────────────────────────────────
+   TOASTS
+───────────────────────────────────────── */
+
 function showToast(message, isError = false) {
+
   const toast = document.getElementById("toast");
+
   if (!toast) return;
+
   toast.textContent = message;
-  isError ? toast.classList.add("error") : toast.classList.remove("error");
+
+  if (isError) {
+    toast.classList.add("error");
+  } else {
+    toast.classList.remove("error");
+  }
+
   toast.classList.add("show");
-  setTimeout(() => toast.classList.remove("show"), 5000);
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 4000);
 }
 
 function showCenterToast(message, isError = false) {
-  const overlay = document.getElementById("toastCenter");
-  const box     = document.getElementById("toastBox");
-  if (!overlay || !box) return;
-  box.textContent = message;
-  isError ? box.classList.add("error") : box.classList.remove("error");
-  overlay.classList.add("show");
-  setTimeout(() => overlay.classList.remove("show"), 3000);
-}
 
-function showToast(message, isError = false) {
-  const toast = document.getElementById("toast");
-  if (!toast) return;
-  toast.textContent = message;
-  isError ? toast.classList.add("error") : toast.classList.remove("error");
-  toast.classList.add("show");
-  setTimeout(() => toast.classList.remove("show"), 4000);
-}
-
-function showCenterToast(message, isError = false) {
   const overlay = document.getElementById("toastCenter");
-  const box     = document.getElementById("toastBox");
+  const box = document.getElementById("toastBox");
+
   if (!overlay || !box) return;
+
   box.textContent = message;
-  isError ? box.classList.add("error") : box.classList.remove("error");
+
+  if (isError) {
+    box.classList.add("error");
+  } else {
+    box.classList.remove("error");
+  }
+
   overlay.classList.add("show");
-  setTimeout(() => overlay.classList.remove("show"), 3000);
+
+  setTimeout(() => {
+    overlay.classList.remove("show");
+  }, 3000);
 }
