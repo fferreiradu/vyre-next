@@ -1,6 +1,6 @@
-import nodemailer from "nodemailer";
+const nodemailer = require("nodemailer");
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
 
   if (req.method !== "POST") {
     return res.status(405).json({
@@ -19,9 +19,11 @@ export default async function handler(req, res) {
     } = req.body;
 
     if (!nome || !email || !mensagem || !servico) {
+
       return res.status(400).json({
         error: "Campos obrigatórios faltando."
       });
+
     }
 
     const transporter = nodemailer.createTransport({
@@ -74,4 +76,4 @@ export default async function handler(req, res) {
 
   }
 
-}
+};
