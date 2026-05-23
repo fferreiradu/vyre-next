@@ -71,7 +71,7 @@ body::before {
   box-shadow:0 1px 0 var(--border), 0 4px 20px rgba(0,0,0,.06);
 }
 /* Logo always visible */
-.nav-logo img { width: 150px; }
+.nav-logo img { width: 150px; margin-top: 15px;}
 
 /* Links: white on dark hero, purple-mid when scrolled */
 .nav-links { display:flex; gap:32px; }
