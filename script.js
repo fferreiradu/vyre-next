@@ -770,6 +770,42 @@ document.addEventListener('keydown', (e) => {
 
 });
 
+(function () {
+  const nav = document.getElementById('nav');
+  if (!nav) return;
+
+  // Cria botão hamburguer
+  const btn = document.createElement('button');
+  btn.className = 'nav-hamburger';
+  btn.setAttribute('aria-label', 'Menu');
+  btn.innerHTML = '<span></span><span></span><span></span>';
+  nav.appendChild(btn);
+
+  // Cria menu mobile
+  const menu = document.createElement('div');
+  menu.className = 'nav-mobile-menu';
+  menu.innerHTML = `
+    <a href="#sobre" >Quem Somos</a>
+    <a href="#pilares">Pilares</a>
+    <a href="#processo">Processo</a>
+    <a href="#contato" class="nav-mobile-cta">Fale Conosco</a>
+  `;
+  document.body.appendChild(menu);
+
+  btn.addEventListener('click', () => {
+    btn.classList.toggle('open');
+    menu.classList.toggle('open');
+  });
+
+  // Fecha ao clicar em um link
+  menu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      btn.classList.remove('open');
+      menu.classList.remove('open');
+    });
+  });
+})();
+
 window.abrirModal = abrirModal;
 window.closeModal = closeModal;
 window.fecharModal = fecharModal;
